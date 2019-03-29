@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang=zh-Hans>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="重装系统之后的新博客">
+  <meta name="keywords" content>
+  
+    <link rel="icon" href="http://b243.photo.store.qq.com/psb?/V11JSGhB38kae5/dqoeuSEGm.C81JBTM6SRM7HrxlPkHhrWkfojQ6qcfL4!/b/dPMAAAAAAAAA&bo=wAMcAgAAAAARB.0!&rf=viewer_4">
+  
+    
+  <title>木犀星计划--vim入门 | CGH&#39;s Blog</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>CGH's Blog</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>木犀星计划--vim入门</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2018/07/23</time>
+            
+            
+          </div>
+          <h2 id="什么是Vim"><a href="#什么是Vim" class="headerlink" title="什么是Vim"></a>什么是Vim</h2><ul>
+<li>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和Emacs并列成为类Unix系统用户最喜欢的编辑器。</li>
+<li>官方网站<a href="http://www.vim.org" target="_blank" rel="noopener">Vim</a>。 </li>
+</ul>
+<h2 id="Vim安装"><a href="#Vim安装" class="headerlink" title="Vim安装"></a>Vim安装</h2><ul>
+<li><p>一般Ubuntu系统会自带Vim，但我们还是在命令行运行一下安装命令保险。(以下操作均需英文输入法。)</p>
+<ol>
+<li>打开虚拟机</li>
+<li>调出终端<ul>
+<li>在虚拟机桌面时，同时按下<code>Ctrl</code>+<code>Alt</code>+<code>T</code>三键即可调出终端。</li>
+<li>如果不成功也可点击左侧菜单最上方的<code>搜索您的计算机</code>按钮或键盘上的<code>微软图标键</code>(如果有)唤出搜索框，输入<code>terminal</code>找到终端并打开。</li>
+</ul>
+</li>
+<li><p>安装Vim</p>
+<ul>
+<li><p>在终端命令行输入以下命令并回车</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo apt-get install vim</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统会提示你输入本机的开机密码，输入后回车。（ps：输入密码时是完全没有显示的，并不是没输进去。）</p>
+</li>
+<li>安装完成。</li>
+</ul>
+</li>
+<li>测试<ul>
+<li>继续在终端中输入<code>vim</code>并回车即可打开vim。</li>
+<li>输入<code>:q</code>并回车以退出vim回到终端或直接左上角关闭。</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Vim简单使用"><a href="#Vim简单使用" class="headerlink" title="Vim简单使用"></a>Vim简单使用</h2><ul>
+<li>Vim运行于终端，用于创建并编辑文本(敲代码<del>装X</del>就靠他了)，以后要学的C,Python,C++等都可以用Vim编写。</li>
+<li><p>这里编辑一个a.txt文件演示一下。</p>
+<ol>
+<li>打开终端</li>
+<li><p>创建文本</p>
+<ul>
+<li><p>在命令行中输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vim a.txt</span><br></pre></td></tr></table></figure>
+<p>即可创建一个名为a的txt文件，其实不加拓展名也可以，但加了有助于Vim识别文本类型并高亮一些内容以增加可读性。</p>
+</li>
+</ul>
+</li>
+<li>编辑文本<ul>
+<li>刚打开a.txt只能阅读它，编辑需要按<code>i</code>进入编辑模式。</li>
+</ul>
+</li>
+<li>保存<ul>
+<li>按<code>Esc</code>键可退出编辑模式，之后输入<code>:w</code>即可保存已编辑内容。</li>
+</ul>
+</li>
+<li>退出<ul>
+<li>退出Vim<br>  退出编辑模式后输入<code>:q</code></li>
+<li>保存并退出Vim<br>  退出编辑模式后输入<code>:wq</code></li>
+<li>强制退出<br>  退出编辑模式后输入<code>:q!</code> </li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="深入"><a href="#深入" class="headerlink" title="*深入"></a>*深入</h2><p>现在应该已经可以使用Vim了，但Vim之所以很火是因为其上手后强大的编辑能力，这里不细讲，贴几个网址，有兴趣可以深入学习。</p>
+<ul>
+<li><a href="https://coolshell.cn/articles/5426.html" target="_blank" rel="noopener">简明Vim练级攻略</a></li>
+<li><a href="http://www.runoob.com/linux/linux-vim.html" target="_blank" rel="noopener">Vim 菜鸟教程</a></li>
+<li><a href="https://www.jianshu.com/p/bcbe916f97e1" target="_blank" rel="noopener">Vim入门基础</a></li>
+</ul>
+
+        </section>
+    </article>
+    
+        <!-- disqus 评论框 start -->
+        <div class="comment">
+            <div id="disqus_thread" class="disqus-thread">
+              <i>Loading comments box needs to over the wall</i>
+            </div>
+        </div>
+        <!-- disqus 评论框 end -->
+    
+    
+        <!-- livere 评论框 start -->
+        <div class="comment">
+            <div id="lv-container" data-id="city" data-uid="your_livere_uid"></div>
+        </div>
+        <!-- livere 评论框 end -->
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是Vim"><span class="toc-number">1.</span> <span class="toc-text">什么是Vim</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim安装"><span class="toc-number">2.</span> <span class="toc-text">Vim安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vim简单使用"><span class="toc-number">3.</span> <span class="toc-text">Vim简单使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深入"><span class="toc-number">4.</span> <span class="toc-text">*深入</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = "your_disqus_shortname";
+  var disqus_identifier = "http://CGH233.github.io/2018/07/23/木犀星计划-vim入门/";
+  var disqus_url = "http://CGH233.github.io/2018/07/23/木犀星计划-vim入门/";
+
+  isAgent(getDisqus)
+
+  // determine user agent in China
+  function isAgent(cb) {
+    var url = '//graph.facebook.com/feed?callback=h';
+    var xhr = new XMLHttpRequest();
+    var called = false;
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+      called = true;
+      cb(true);
+      }
+    };
+    xhr.send();
+    // timeout 1s, this facebook API is very fast.
+    setTimeout(function() {
+      if (!called) {
+      xhr.abort();
+      cb(false)
+      }
+    }, 1000);
+  }
+
+  function getDisqus(isAgent) {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+    dsq.async = true
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+  }
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+<script type="text/javascript">
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
