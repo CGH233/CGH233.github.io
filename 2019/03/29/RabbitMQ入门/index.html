@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang=zh-Hans>
+  <head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="重装系统之后的新博客">
+  <meta name="keywords" content>
+  
+    <link rel="icon" href="http://b243.photo.store.qq.com/psb?/V11JSGhB38kae5/dqoeuSEGm.C81JBTM6SRM7HrxlPkHhrWkfojQ6qcfL4!/b/dPMAAAAAAAAA&bo=wAMcAgAAAAARB.0!&rf=viewer_4">
+  
+    
+  <title>RabbitMQ入门 | CGH&#39;s Blog</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/lib/jquery.fancybox.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <header>
+  <div class="header-container">
+    <a class="logo" href="/">
+      <span>CGH's Blog</span>
+    </a>
+    <ul class="right-header">
+      
+        <li class="nav-item">
+          
+            <a href="/" class="item-link">首页</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/about" class="item-link">关于</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/archives" class="item-link">归档</a>
+          
+        </li>
+      
+        <li class="nav-item">
+          
+            <a href="/tags" class="item-link">标签</a>
+          
+        </li>
+      
+    </ul>
+  </div>
+</header>
+
+  <main id="post">
+  <div class="content">
+    <article>
+        <section class="content markdown-body">
+          <h1>RabbitMQ入门</h1>
+          <div class="post-meta">
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time>2019/03/29</time>
+            
+            
+          </div>
+          <h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
+<li>最近在写工作台，消息队列处理的时候用到了RabbitMQ，总体感觉挺好用挺友好的，记下来以后可以回来看。</li>
+</ul>
+<h2 id="RabbitMQ安装和配置"><a href="#RabbitMQ安装和配置" class="headerlink" title="RabbitMQ安装和配置"></a>RabbitMQ安装和配置</h2><ul>
+<li><p>要安装RabbitMQ，首先要安装Erlang语言库。</p>
+<ol>
+<li>在系统中加入Erlang apt仓库<br>‘’’<br>$ wget <a href="https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" target="_blank" rel="noopener">https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb</a><br>$ sudo dpkg -i erlang-solutions_1.0_all.deb<br>‘’’</li>
+<li><p>修改Erlang镜像地址，下的快些。</p>
+<ol>
+<li>打开文件<br>‘’’<br>$ vim /etc/apt/sources.list.d/erlang-solutions.list<br>‘’’</li>
+<li>修改默认值<br>‘’’<br>deb <a href="https://mirrors.liuboping.com/erlang/ubuntu/" target="_blank" rel="noopener">https://mirrors.liuboping.com/erlang/ubuntu/</a> xenial contrib<br>‘’’</li>
+<li>安装<br>‘’’<br>$ sudo apt-get update$ sudo apt-get install erlang erlang-nox<br>‘’’</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>安装完Erlang语言库以后就开始安装RabbitMq</p>
+<ol>
+<li>在系统中加入RabbbitMQ apt仓库，再加入RabbitMQ signing key。<br>‘’’<br>$ echo ‘deb <a href="http://www.rabbitmq.com/debian/" target="_blank" rel="noopener">http://www.rabbitmq.com/debian/</a> testing main’ | sudo tee /etc/apt/sources.list.d    /rabbitmq.list<br>$ wget -O- <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc" target="_blank" rel="noopener">https://www.rabbitmq.com/rabbitmq-release-signing-key.asc</a> | sudo apt-key add -<br>‘’’</li>
+<li>安装<br>‘’’<br>$ sudo apt-get update<br>$ sudo apt-get install rabbitmq-server<br>‘’’</li>
+</ol>
+</li>
+<li><p>启用RabbitMQ Management插件(网页管理RabbitMQ)</p>
+<ol>
+<li>启用<br>‘’’<br>$ sudo rabbitmq-plugins enable rabbitmq_management<br>‘’’</li>
+<li>重启服务器<br>‘’’<br>$ sudo systemctl restart rabbitmq-server<br>‘’’</li>
+<li><p>登录</p>
+<ul>
+<li><p>在浏览器中输入<br>‘’’<br>localhost:15672<br>‘’’<br>进入登录界面</p>
+</li>
+<li><p>输入账号密码<br>‘’’<br>Username: guest<br>Password: guest<br>‘’’<br>即可登入本地RabbitMQ管理界面。</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>修改配置文件</p>
+<ol>
+<li><p>拷贝配置文件到 /etc/rabbitmq/</p>
+<ul>
+<li><p>如果提示权限不够请尝试<br>‘’’<br>sudo su<br>‘’’<br>进入root用户完成操作</p>
+</li>
+<li><p>进入 /etc/rabbitmq/ 后<br>‘’’<br>zcat /usr/share/doc/rabbitmq-server/rabbitmq.config.example.gz &gt; /etc/rabbitmq/rabbitmq.config<br>‘’’</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="Pika-RabbitMQ"><a href="#Pika-RabbitMQ" class="headerlink" title="Pika + RabbitMQ"></a>Pika + RabbitMQ</h2><ul>
+<li><p>以下为Python使用RabbitMQ的教程</p>
+</li>
+<li><p>安装Pika库<br>‘’’<br>pip3 install pika==0.12.0<br>‘’’</p>
+</li>
+<li><p>这里只讲最简单的发送消息和接收消息</p>
+<ol>
+<li><p>发送消息<br>‘’’python<br>import pika<br>#引用pika库</p>
+<p>connection = pika.BlockingConnection(pika.ConnectionParameters(host=’localhost’))<br>#连接消息队列的地址，此处为localhost，即本地</p>
+<p>channel = connection.channel()<br>#创建channel</p>
+<p>channel.queue_declare(queue=’hello’)<br>#创建队列hello，如果已经创建不会重复创建</p>
+<p>channel.basic_publish(<br> exchange=’’,<br> routing_key=’hello’,<br> body=’Hello World!’)<br>#发送消息 exchange默认不写，交换机和路由键中需要  routing_key为队列名  body中为消息内容</p>
+<p>connection.close()<br>#关闭连接<br>‘’’</p>
+</li>
+<li>接收消息<br>‘’’python<br>‘’’</li>
+</ol>
+</li>
+<li>还有多种队列形式见RabbitMQ官方文档</li>
+</ul>
+
+        </section>
+    </article>
+    
+        <!-- disqus 评论框 start -->
+        <div class="comment">
+            <div id="disqus_thread" class="disqus-thread">
+              <i>Loading comments box needs to over the wall</i>
+            </div>
+        </div>
+        <!-- disqus 评论框 end -->
+    
+    
+        <!-- livere 评论框 start -->
+        <div class="comment">
+            <div id="lv-container" data-id="city" data-uid="your_livere_uid"></div>
+        </div>
+        <!-- livere 评论框 end -->
+        
+  </div>
+  <aside>
+    
+    <div class="toc-container">
+        <h1>目录</h1>
+        <div class="content">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ安装和配置"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ安装和配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pika-RabbitMQ"><span class="toc-number">3.</span> <span class="toc-text">Pika + RabbitMQ</span></a></li></ol>
+        </div>
+    </div>
+    
+  </aside>
+</main>
+
+<!-- disqus 公共JS代码 -->
+<script type="text/javascript">
+  /* * * CONFIGURATION VARIABLES * * */
+  var disqus_shortname = "your_disqus_shortname";
+  var disqus_identifier = "http://CGH233.github.io/2019/03/29/RabbitMQ入门/";
+  var disqus_url = "http://CGH233.github.io/2019/03/29/RabbitMQ入门/";
+
+  isAgent(getDisqus)
+
+  // determine user agent in China
+  function isAgent(cb) {
+    var url = '//graph.facebook.com/feed?callback=h';
+    var xhr = new XMLHttpRequest();
+    var called = false;
+    xhr.open('GET', url);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+      called = true;
+      cb(true);
+      }
+    };
+    xhr.send();
+    // timeout 1s, this facebook API is very fast.
+    setTimeout(function() {
+      if (!called) {
+      xhr.abort();
+      cb(false)
+      }
+    }, 1000);
+  }
+
+  function getDisqus(isAgent) {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+    dsq.async = true
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
+  }
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+<script type="text/javascript">
+  (function(d, s) {
+      var j, e = d.getElementsByTagName(s)[0];
+
+      if (typeof LivereTower === 'function') { return; }
+
+      j = d.createElement(s);
+      j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+      j.async = true;
+
+      e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+
+  <footer>
+  <div class="copyright">
+    <div>
+      &copy; 2019 | Powered by <a href="https://hexo.io" target="_blank">Hexo</a>&nbsp
+    </div>
+    <div>
+      Theme by <a href="https://github.com/lewis-geek/hexo-theme-Aath" target="_blank">Aath</a>
+    </div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="/lib/in-view.min.js"></script>
+<script src="/lib/lodash.min.js"></script>
+<script>
+  var isDown = true
+  var oldY = 0
+  inView.offset(50)
+
+  document.body.addEventListener('touchstart', function(){});
+  
+  window.addEventListener('scroll', _.throttle(e => {
+    var currentY = window.scrollY
+    if((oldY - currentY) < 0) {
+      isDown = true
+    } else {
+      isDown = false
+    }
+    oldY = currentY
+  }, 250))
+
+  $("article img").each(function() {
+      var strA = "<a data-fancybox='gallery' href='" + this.src + "'></a>";
+      $(this).wrapAll(strA);
+  });
+
+  $('.toc-link').each(function() {
+      var href = $(this).attr("href");
+      
+      inView(href).on('exit', () => {
+        if (isDown) {
+          handleActive(href)
+        }
+      })
+
+      inView(href).on('enter', () => {
+        if (!isDown) {
+          handleActive(href)
+        }
+      })
+
+      this.onclick = function(e) {
+        var pos = $(href).offset().top - 10;
+        $("html,body").animate({scrollTop: pos}, 300);
+        setTimeout(() => {
+          handleActive(href)
+        }, 350)
+        return false
+      }
+  })
+
+  function handleActive(href) {
+    document.querySelectorAll('.toc-link').forEach(elm => {
+      elm.classList.remove('active')
+    })
+    document.querySelector(".toc [href='"+ href +"']").classList.add('active')
+  }
+</script>
+<script src="/lib/jquery.fancybox.min.js"></script>
+
+
+</body>
+</html>
