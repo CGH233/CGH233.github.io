@@ -68,66 +68,64 @@
 <h2 id="RabbitMQ安装和配置"><a href="#RabbitMQ安装和配置" class="headerlink" title="RabbitMQ安装和配置"></a>RabbitMQ安装和配置</h2><ul>
 <li><p>要安装RabbitMQ，首先要安装Erlang语言库。</p>
 <ol>
-<li>在系统中加入Erlang apt仓库<br>‘’’<br>$ wget <a href="https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb" target="_blank" rel="noopener">https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb</a><br>$ sudo dpkg -i erlang-solutions_1.0_all.deb<br>‘’’</li>
+<li><p>在系统中加入Erlang apt仓库</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb</span><br><span class="line">$ sudo dpkg -i erlang-solutions_1.0_all.deb</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>修改Erlang镜像地址，下的快些。</p>
 <ol>
-<li>打开文件<br>‘’’<br>$ vim /etc/apt/sources.list.d/erlang-solutions.list<br>‘’’</li>
-<li>修改默认值<br>‘’’<br>deb <a href="https://mirrors.liuboping.com/erlang/ubuntu/" target="_blank" rel="noopener">https://mirrors.liuboping.com/erlang/ubuntu/</a> xenial contrib<br>‘’’</li>
-<li>安装<br>‘’’<br>$ sudo apt-get update$ sudo apt-get install erlang erlang-nox<br>‘’’</li>
+<li><p>打开文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ vim /etc/apt/sources.list.d/erlang-solutions.list</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改默认值</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deb https://mirrors.liuboping.com/erlang/ubuntu/ xenial contrib</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update$ sudo apt-get install erlang erlang-nox</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </li>
 </ol>
 </li>
 <li><p>安装完Erlang语言库以后就开始安装RabbitMq</p>
 <ol>
-<li>在系统中加入RabbbitMQ apt仓库，再加入RabbitMQ signing key。<br>‘’’<br>$ echo ‘deb <a href="http://www.rabbitmq.com/debian/" target="_blank" rel="noopener">http://www.rabbitmq.com/debian/</a> testing main’ | sudo tee /etc/apt/sources.list.d    /rabbitmq.list<br>$ wget -O- <a href="https://www.rabbitmq.com/rabbitmq-release-signing-key.asc" target="_blank" rel="noopener">https://www.rabbitmq.com/rabbitmq-release-signing-key.asc</a> | sudo apt-key add -<br>‘’’</li>
-<li>安装<br>‘’’<br>$ sudo apt-get update<br>$ sudo apt-get install rabbitmq-server<br>‘’’</li>
+<li><p>在系统中加入RabbbitMQ apt仓库，再加入RabbitMQ signing key。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ echo &apos;deb http://www.rabbitmq.com/debian/ testing main&apos; | sudo tee /etc/apt/sources.list.d    /rabbitmq.list</span><br><span class="line">$ wget -O- https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | sudo apt-key add -</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo apt-get update</span><br><span class="line">$ sudo apt-get install rabbitmq-server</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 </li>
 <li><p>启用RabbitMQ Management插件(网页管理RabbitMQ)</p>
 <ol>
-<li>启用<br>‘’’<br>$ sudo rabbitmq-plugins enable rabbitmq_management<br>‘’’</li>
-<li>重启服务器<br>‘’’<br>$ sudo systemctl restart rabbitmq-server<br>‘’’</li>
+<li><p>启用</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo rabbitmq-plugins enable rabbitmq_management</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启服务器</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ sudo systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>登录</p>
 <ul>
-<li><p>在浏览器中输入<br>‘’’<br>localhost:15672<br>‘’’<br>进入登录界面</p>
-</li>
-<li><p>输入账号密码<br>‘’’<br>Username: guest<br>Password: guest<br>‘’’<br>即可登入本地RabbitMQ管理界面。</p>
-</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>修改配置文件</p>
-<ol>
-<li><p>拷贝配置文件到 /etc/rabbitmq/</p>
-<ul>
-<li><p>如果提示权限不够请尝试<br>‘’’<br>sudo su<br>‘’’<br>进入root用户完成操作</p>
-</li>
-<li><p>进入 /etc/rabbitmq/ 后<br>‘’’<br>zcat /usr/share/doc/rabbitmq-server/rabbitmq.config.example.gz &gt; /etc/rabbitmq/rabbitmq.config<br>‘’’</p>
+<li><p>在浏览器中输入</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">localhost:15672</span><br></pre></td></tr></table></figure>
+<p>进入登录界面</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ 输入账号密码</span><br></pre></td></tr></table></figure>
+<p>Username: guest<br>Password: guest</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">        即可登入本地RabbitMQ管理界面。</span><br><span class="line"></span><br><span class="line">+ 修改配置文件</span><br><span class="line"></span><br><span class="line">    1. 拷贝配置文件到 /etc/rabbitmq/</span><br><span class="line"></span><br><span class="line">        + 如果提示权限不够请尝试</span><br></pre></td></tr></table></figure>
+<p>sudo su</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">进入root用户完成操作</span><br><span class="line"></span><br><span class="line">+ 进入 /etc/rabbitmq/ 后</span><br></pre></td></tr></table></figure>
+<p>zcat /usr/share/doc/rabbitmq-server/rabbitmq.config.example.gz &gt; /etc/rabbitmq/rabbitmq.config</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Pika + RabbitMQ</span><br><span class="line">---</span><br><span class="line">+ 以下为Python使用RabbitMQ的教程</span><br><span class="line"></span><br><span class="line">+ 安装Pika库</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ol>
 </li>
 </ul>
-<h2 id="Pika-RabbitMQ"><a href="#Pika-RabbitMQ" class="headerlink" title="Pika + RabbitMQ"></a>Pika + RabbitMQ</h2><ul>
-<li><p>以下为Python使用RabbitMQ的教程</p>
-</li>
-<li><p>安装Pika库<br>‘’’<br>pip3 install pika==0.12.0<br>‘’’</p>
-</li>
-<li><p>这里只讲最简单的发送消息和接收消息</p>
-<ol>
-<li><p>发送消息<br>‘’’python<br>import pika<br>#引用pika库</p>
-<p>connection = pika.BlockingConnection(pika.ConnectionParameters(host=’localhost’))<br>#连接消息队列的地址，此处为localhost，即本地</p>
-<p>channel = connection.channel()<br>#创建channel</p>
-<p>channel.queue_declare(queue=’hello’)<br>#创建队列hello，如果已经创建不会重复创建</p>
-<p>channel.basic_publish(<br> exchange=’’,<br> routing_key=’hello’,<br> body=’Hello World!’)<br>#发送消息 exchange默认不写，交换机和路由键中需要  routing_key为队列名  body中为消息内容</p>
-<p>connection.close()<br>#关闭连接<br>‘’’</p>
-</li>
-<li>接收消息<br>‘’’python<br>‘’’</li>
-</ol>
-</li>
+<p>pip3 install pika==0.12.0<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+ 这里只讲最简单的发送消息和接收消息</span><br><span class="line"></span><br><span class="line">    1. 发送消息</span><br><span class="line">    ```python</span><br><span class="line">    import pika </span><br><span class="line">    #引用pika库</span><br><span class="line"></span><br><span class="line">    connection = pika.BlockingConnection(pika.ConnectionParameters(host=&apos;localhost&apos;))</span><br><span class="line">    #连接消息队列的地址，此处为localhost，即本地</span><br><span class="line"></span><br><span class="line">    channel = connection.channel()</span><br><span class="line">    #创建channel</span><br><span class="line"></span><br><span class="line">    channel.queue_declare(queue=&apos;hello&apos;)</span><br><span class="line">    #创建队列hello，如果已经创建不会重复创建</span><br><span class="line"></span><br><span class="line">    channel.basic_publish(</span><br><span class="line">        exchange=&apos;&apos;,</span><br><span class="line">        routing_key=&apos;hello&apos;,</span><br><span class="line">        body=&apos;Hello World!&apos;)</span><br><span class="line">    #发送消息 exchange默认不写，交换机和路由键中需要  routing_key为队列名  body中为消息内容</span><br><span class="line"></span><br><span class="line">    connection.close()</span><br><span class="line">    #关闭连接</span><br></pre></td></tr></table></figure></p>
+<pre><code>2. 接收消息
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+</code></pre><ul>
 <li>还有多种队列形式见RabbitMQ官方文档</li>
 </ul>
 
@@ -155,7 +153,7 @@
     <div class="toc-container">
         <h1>目录</h1>
         <div class="content">
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ安装和配置"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ安装和配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pika-RabbitMQ"><span class="toc-number">3.</span> <span class="toc-text">Pika + RabbitMQ</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#说明"><span class="toc-number">1.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ安装和配置"><span class="toc-number">2.</span> <span class="toc-text">RabbitMQ安装和配置</span></a></li></ol>
         </div>
     </div>
     
